@@ -35,4 +35,19 @@ function init() {
   container.querySelector('.back').addEventListener('click', backClick);
 }
 
+function addContacts() {
+  const contactsList = document.querySelector('.contacts-list');
+  let contactLink = '';
+  const contacts = JSON.parse(loadContacts());
+
+  for (let contact of contacts) {
+    contactLink += '<li data-email="' + contact.email + '" data-phone="' + contact.phone + '">';
+    contactLink += '<strong>' + contact.name + '</strong>';
+    contactLink += '</li>';
+
+    contactsList.innerHTML = contactLink;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', addContacts);
 document.addEventListener('DOMContentLoaded', init);
