@@ -1,4 +1,26 @@
 /* Данный JS код */
+const xhr = new XMLHttpRequest();
+const catalog = document.getElementById('content')
+
+xhr.addEventListener("load", onLoad);
+xhr.open("GET", "https://neto-api.herokuapp.com/book",true);
+xhr.send();
+
+function onLoad() {
+    const books = JSON.parse(xhr.responseText);
+    let booksLinks = '';
+
+    for (let book of books) {
+        booksLinks += '<li ';
+        booksLinks += `data-title="${book.title}" `;
+        booksLinks += `data-author="${book.author.name}" `;
+        booksLinks += `data-info="${book.info}" `;
+        booksLinks += `data-price="${book.price}">`;
+        booksLinks += `<img src=${book.cover.small}> </li>`;
+
+        catalog.innerHTML = booksLinks;
+    }
+}
 
 // Регулируем видимость карточки
 function toggleCardVisible () {
