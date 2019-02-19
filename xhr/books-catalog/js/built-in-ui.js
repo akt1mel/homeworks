@@ -11,12 +11,9 @@ function onLoad() {
     let booksLinks = '';
 
     for (let book of books) {
-        booksLinks += '<li ';
-        booksLinks += `data-title="${book.title}" `;
-        booksLinks += `data-author="${book.author.name}" `;
-        booksLinks += `data-info="${book.info}" `;
-        booksLinks += `data-price="${book.price}">`;
-        booksLinks += `<img src=${book.cover.small}> </li>`;
+        booksLinks += `<li data-title="${book.title}" data-author="${book.author.name}" 
+                        data-info="${book.info}" data-price="${book.price}">
+                        <img src=${book.cover.small}> </li>`;
 
         catalog.innerHTML = booksLinks;
     }

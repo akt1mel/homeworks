@@ -6,10 +6,10 @@ const preloader = document.getElementById('preloader');
 
 console.log(tabs);
 
+xhr.addEventListener('loadstart', () => preloader.classList.remove('hidden'));
 xhr.addEventListener('load', onLoad);
-xhr.addEventListener('progress', () => preloader.classList.remove('hidden'));
 xhr.addEventListener('loadend', () => preloader.classList.add('hidden'));
-xhr.open("GET", tabs[0].href, true);
+xhr.open("GET", tabs[0].href, );
 xhr.send();
 
 for (let tab of tabs) {
