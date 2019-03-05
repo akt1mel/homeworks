@@ -41,11 +41,11 @@ function drawCross() {
     ctx.beginPath();
     ctx.strokeStyle = '#FFFFFF';
     ctx.rotate(Math.PI*this.angle/180);
-    ctx.moveTo(this.currX - this.size * 10, this.currY);
-    ctx.lineTo(this.currX  + this.size * 10, this.currY);
+    ctx.moveTo(this.currX - this.size * 20, this.currY);
+    ctx.lineTo(this.currX  + this.size * 20, this.currY);
     ctx.stroke();
-    ctx.moveTo(this.currX, this.currY - this.size * 10);
-    ctx.lineTo(this.currX, this.currY + this.size * 10);
+    ctx.moveTo(this.currX, this.currY - this.size * 20);
+    ctx.lineTo(this.currX, this.currY + this.size * 20);
     ctx.stroke();
     ctx.restore();
 }
