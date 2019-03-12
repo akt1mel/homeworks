@@ -2,13 +2,13 @@ const wall = document.querySelector('#wall');
 const ctx = wall.getContext("2d");
 
 function randomInt(min, max) {
-    return Math.round(min - 0.5 + Math.random()*(max - min +1));
+    return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 
 }
 
 function randomFloat(min, max, precision = 1) {
     let degree = Math.pow(10, precision);
-    return randomInt(min*degree,max*degree)/degree;
+    return randomInt(min * degree, max * degree) / degree;
 }
 
 function nextPoint1(x, y, time) {
@@ -25,24 +25,25 @@ function nextPoint2(x, y, time) {
     }
 }
 
-
+//формирование кольца
 function drawCircle() {
     ctx.save();
     ctx.beginPath();
     ctx.strokeStyle = '#FFFFFF';
     ctx.lineWidth = this.size * 5;
-    ctx.arc(this.currX, this.currY, this.size * 12, 0, 2*Math.PI);
+    ctx.arc(this.currX, this.currY, this.size * 12, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.restore();
 }
 
+//формирование крестика
 function drawCross() {
     ctx.save();
     ctx.beginPath();
     ctx.strokeStyle = '#FFFFFF';
-    ctx.rotate(Math.PI*this.angle/180);
+    ctx.rotate(Math.PI * this.angle / 180); //поворот крестика
     ctx.moveTo(this.currX - this.size * 20, this.currY);
-    ctx.lineTo(this.currX  + this.size * 20, this.currY);
+    ctx.lineTo(this.currX + this.size * 20, this.currY);
     ctx.stroke();
     ctx.moveTo(this.currX, this.currY - this.size * 20);
     ctx.lineTo(this.currX, this.currY + this.size * 20);
@@ -60,35 +61,39 @@ for (let i = 0; i < countFigure; i++) {
         size: randomFloat(0.1, 0.6, 1),
         speedRotate: randomFloat(-0.2, 0.2, 1),
         angle: randomInt(0, 360),
-        funcNextPoint: randomInt(0,1) === 0 ? nextPoint1 : nextPoint2,
+        funcNextPoint: randomInt(0, 1) === 0 ? nextPoint1 : nextPoint2,
         funcDrawFigure: i % 2 === 0 ? drawCircle : drawCross
 
     });
 }
 
+//перемещение объектов по холсту
 function moveFigures() {
-    for(let i=0; i < countFigure;i++){
+    for (let i = 0; i < countFigure; i++) {
         let result = figure[i].funcNextPoint(figure[i].x, figure[i].y, Date.now());
         figure[i].currX = result.x;
         figure[i].currY = result.y;
         figure[i].angle += figure[i].speedRotate;
 
-        if (figure[i].angle > 360){
+        if (figure[i].angle > 360) {
             figure[i].angle -= 360;
-        } else if (figure[i].angle < 0){
+        } else if (figure[i].angle < 0) {
             figure[i].angle += 360;
         }
     }
 
 }
 
+//отрисовка объектов на холсте
 function drawFigures() {
-    for (let i=0;i < countFigure; i++){
+    for (let i = 0; i < countFigure; i++) {
         figure[i].funcDrawFigure();
     }
 }
+
+//Перерисовка холста
 setInterval(function () {
-    ctx.clearRect(0,0,wall.width,wall.height);
+    ctx.clearRect(0, 0, wall.width, wall.height);
     moveFigures();
     drawFigures();
 

@@ -1,14 +1,15 @@
 'use strict';
 
-const canvas = document.getElementById('draw');
-const ctx = canvas.getContext('2d');
-let curves = [];
-let draw = false;
-let shift = false;
-let lineWidth = 100;
-let reduceWith = true;
-let lineColor = 1;
-let needsRepaint = false;
+const canvas = document.getElementById('draw'),
+    ctx = canvas.getContext('2d');
+let curves = [], //массив кривых
+    draw = false,
+    shift = false,
+    lineWidth = 100,
+    reduceWith = true,
+    lineColor = 1,
+    needsRepaint = false;
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -19,12 +20,11 @@ canvas.addEventListener('mousedown', (e) => {
 });
 
 canvas.addEventListener('mousemove', (e) => {
-   if (draw) {
-
-       curves.push(makePoint(e.offsetX, e.offsetY));
-       shift = e.shiftKey;
-       needsRepaint = true;
-   }
+    if (draw) {
+        curves.push(makePoint(e.offsetX, e.offsetY));
+        shift = e.shiftKey;
+        needsRepaint = true;
+    }
 });
 
 canvas.addEventListener('mouseup', (e) => {
@@ -53,7 +53,7 @@ window.addEventListener('resize', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
 
-
+//перерисовка фона
 function repaint() {
 
     if (reduceWith) {
@@ -64,8 +64,7 @@ function repaint() {
             lineWidth++;
         }
 
-    }
-    else {
+    } else {
         if (lineWidth === 5) {
             reduceWith = true;
             lineWidth++;
@@ -96,8 +95,9 @@ function repaint() {
     curves.splice(0, curves.length - 2);
 }
 
-function tick () {
-    if(needsRepaint) {
+
+function tick() {
+    if (needsRepaint) {
         repaint();
         needsRepaint = false;
     }
