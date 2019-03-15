@@ -20,6 +20,10 @@ textarea.addEventListener('blur', () => {
     message.classList.remove('view');
 });
 
+textarea.addEventListener('focus', () => {
+    block.classList.add('active');
+});
+
 function debounce(callback, delay) {
     let timeout;
     return () => {

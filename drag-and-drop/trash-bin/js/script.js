@@ -29,6 +29,7 @@ function mouseUp(event) {
             .elementFromPoint(event.clientX, event.clientY)
             .closest('#trash_bin');
         icon.style.visibility = 'visible';
+        icon.classList.remove('moving');
 
         if (check) {
             icon.style.display = 'none';
